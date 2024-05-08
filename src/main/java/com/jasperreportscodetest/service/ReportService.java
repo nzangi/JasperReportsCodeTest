@@ -20,10 +20,10 @@ public class ReportService {
     @Autowired
     private EmployeeRepository employeeRepository;
     public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
-        String path = "/home/nzangi/Documents/JasperReportsCodeTest/JasperReports/";
+        String path = "../JasperReportsCodeTest/JasperReports/";
         List<Employee> employees = employeeRepository.findAll();
         System.out.println(employees);
-        //load file and compile it
+        //loading the file and compile it
         File file = ResourceUtils.getFile("classpath:employees.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(employees);
