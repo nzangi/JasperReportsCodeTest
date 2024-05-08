@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### IDEA ###
+.mvn
+.idea
+.mvn/wrapper
