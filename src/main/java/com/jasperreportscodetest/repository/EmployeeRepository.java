@@ -1,6 +1,9 @@
 package com.jasperreportscodetest.repository;
 
 import com.jasperreportscodetest.entity.Employee;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.metamodel.EntityType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

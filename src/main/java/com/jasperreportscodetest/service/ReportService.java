@@ -43,9 +43,6 @@ public class ReportService {
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 
         File subreportFile = ResourceUtils.getFile("classpath:DepartmentSummary.jrxml");
-//        JasperReport subreportJasperReport = JasperCompileManager.compileReport(subreportFile.getAbsolutePath());
-//        JasperReport subreportJasperReport = (JasperReport) JRLoader.loadObject(subreportFile);
-
 
         // Data Sources
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(employees);
@@ -53,25 +50,18 @@ public class ReportService {
         // Parameters
         Map<String, Object> parameters = new HashMap<>();
 
-
-        //For filtering purposes,if the arguments are given
-//        parameters.put("Department", department);
-//        parameters.put("MinSalary", minSalary);
-//        parameters.put("MaxSalary", maxSalary);
-
         parameters.put("CreatedBy", "Nzangi Muoki");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         if (reportFormat.equalsIgnoreCase("html")) {
             JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "EmployeeReport.html");
         }
-        if (reportFormat.equalsIgnoreCase("pdf")) {
+        else if (reportFormat.equalsIgnoreCase("pdf")) {
             JasperExportManager.exportReportToPdfFile(jasperPrint, path + "EmployeeReport.pdf");
         }
 
 
         return "The report was generated in : " + path;
     }
-
     public String exportSalaryReport(String reportFormat) throws FileNotFoundException, JRException {
         String path = "../JasperReportsCodeTest/JasperReports/";
         List<Employee>  employees = employeeRepository.findAll();
@@ -103,13 +93,70 @@ public class ReportService {
         parameters.put("CreatedBy", "Nzangi Muoki");
         JasperPrint jasperPrint = JasperFillManager.fillReport(subreportJasperReport, parameters, dataSource);
         if (reportFormat.equalsIgnoreCase("html")) {
-            JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "EmployeeSalaryReport.html");
+            JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "DepartmentSummary.html");
         }
         if (reportFormat.equalsIgnoreCase("pdf")) {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "EmployeeSalaryReport.pdf");
+            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "DepartmentSummary.pdf");
         }
 
         return "The report was generated in : " + path;
     }
+    public String exportChartReport(String reportFormat) throws FileNotFoundException, JRException {
 
+        String path = "../JasperReportsCodeTest/JasperReports/";
+        List<Employee> employees = employeeRepository.findAll();
+
+        File subreportFile = ResourceUtils.getFile("classpath:ReportChart.jrxml");
+        JasperReport chartReport = JasperCompileManager.compileReport(subreportFile.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(employees);
+
+        // Prepare chart data
+        Map<String, Long> departmentCounts = employees.stream()
+                .filter(employee -> employee.getEmployeeDepartment() != null) // Filter out null departments
+                .collect(Collectors.groupingBy(Employee::getEmployeeDepartment, Collectors.counting()));
+        // Parameters
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("CreatedBy", "Nzangi Muoki");
+        parameters.put("departmentCounts", departmentCounts);
+        System.out.println("DepartmentCounts");
+        System.out.println(departmentCounts);
+
+        // Fill report
+        JasperPrint jasperPrint = JasperFillManager.fillReport(chartReport, parameters,dataSource);
+
+        if (reportFormat.equalsIgnoreCase("html")) {
+            JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "ReportChart.html");
+        }
+        if (reportFormat.equalsIgnoreCase("pdf")) {
+            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "ReportChart.pdf");
+        }
+
+        return "The report was generated in: " + path;
     }
+    public String exportFullUSerReport(String reportFormat) throws FileNotFoundException, JRException {
+
+        String path = "../JasperReportsCodeTest/JasperReports/";
+        List<Employee> employees = employeeRepository.findAll();
+
+        File subreportFile = ResourceUtils.getFile("classpath:EmployeeDetailsSubreport.jrxml");
+        JasperReport employeeFullReport = JasperCompileManager.compileReport(subreportFile.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(employees);
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("CreatedBy", "Nzangi Muoki");
+
+
+        // Fill report
+        JasperPrint jasperPrint = JasperFillManager.fillReport(employeeFullReport, parameters,dataSource);
+
+        if (reportFormat.equalsIgnoreCase("html")) {
+            JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "EmployeeDetailsSubreport.html");
+        }
+        if (reportFormat.equalsIgnoreCase("pdf")) {
+            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "EmployeeDetailsSubreport.pdf");
+        }
+
+        return "The report was generated in: " + path;
+    }
+
+}

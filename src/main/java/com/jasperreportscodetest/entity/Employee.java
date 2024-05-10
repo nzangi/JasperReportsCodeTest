@@ -32,6 +32,13 @@ public class Employee {
     private String employeeDepartment;
     @Column(name = "salary")
     private double employeeSalary;
+
+    @Embedded
+    private Address address;
+
+    @Embedded
+    private ContactInformation contactInformation;
+
     @Column(name = "hire_date")
     private LocalDate employeeHireDate;
 

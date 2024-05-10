@@ -1,6 +1,8 @@
 package com.jasperreportscodetest.controller;
 
 import com.github.javafaker.Faker;
+import com.jasperreportscodetest.entity.Address;
+import com.jasperreportscodetest.entity.ContactInformation;
 import com.jasperreportscodetest.entity.Employee;
 import com.jasperreportscodetest.repository.EmployeeRepository;
 import com.jasperreportscodetest.service.ReportService;
@@ -15,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -53,17 +56,41 @@ public class EmployeeController {
     public String generateSalaryReport(@PathVariable String format) throws JRException, FileNotFoundException {
         return reportService.exportSalaryReport(format);
     }
+
+    @GetMapping("/chart-report/{format}")
+    public String generateChartReport(@PathVariable String format) throws JRException, FileNotFoundException {
+        return reportService.exportChartReport(format);
+    }
+    @GetMapping("/users-full-report/{format}")
+    public String generateFullReport(@PathVariable String format) throws JRException, FileNotFoundException {
+        return reportService.exportFullUSerReport(format);
+    }
     @PostConstruct
     public void initializeData() {
         Faker faker = new Faker();
+        List<String> departments = Arrays.asList("Engineering", "Marketing", "Sales", "Finance", "Operations", "Human Resources", "Customer Service");
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         List<Employee> fakeEmployees = IntStream.range(0, 10)
                 .mapToObj(i -> {
                     Employee employee = new Employee();
                     employee.setEmployeeName(faker.name().fullName());
-                    employee.setEmployeeDepartment(faker.company().profession());
+                    String randomDepartment = departments.get(faker.random().nextInt(departments.size()));
+                    employee.setEmployeeDepartment(randomDepartment);
                     employee.setEmployeeSalary(faker.number().randomDouble(2, 3000, 10000));
 //                    employee.setEmployeeHireDate(String.valueOf(Date.valueOf(sdf.format(faker.date()))));
+                    // Generate fake address
+                    Address address = new Address();
+                    address.setStreet(faker.address().streetAddress());
+                    address.setCity(faker.address().city());
+                    address.setZipcode(faker.address().zipCode());
+                    employee.setAddress(address);
+
+                    // Generate fake contact information
+                    ContactInformation contactInformation = new ContactInformation();
+                    contactInformation.setPhoneNumber(faker.phoneNumber().cellPhone());
+                    contactInformation.setEmail(faker.internet().emailAddress());
+                    employee.setContactInformation(contactInformation);
+
                     LocalDateTime hireDateTime = faker.date().past(3650, TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
                     employee.setEmployeeHireDate(LocalDate.from(hireDateTime));
                     return employee;
@@ -72,9 +99,6 @@ public class EmployeeController {
 
 //        employeeRepository.saveAll(fakeEmployees);
     }
-
-
-
 
 
 }

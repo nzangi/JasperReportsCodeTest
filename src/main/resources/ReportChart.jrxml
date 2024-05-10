@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employees" pageWidth="1000" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ea9d9eab-78ea-4cb9-adce-7588ae6a483e">
+    <parameter name="departmentCounts" class="java.util.Map"/>
+    <field name="employeeDepartment" class="java.lang.String"/>
+
+    <title>
+        <band height="400">
+            <barChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="0" y="0" width="1000" height="400" uuid="90ed3f78-474b-4f6c-af8e-0af6b8837c81"/>
+                    <chartTitle>
+                        <titleExpression>
+                            <![CDATA["Employee Distribution by Department"]]>
+                        </titleExpression>
+                    </chartTitle>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <categorySeries>
+                        <seriesExpression>
+                            <![CDATA["Employee Count"]]>
+                        </seriesExpression>
+                        <categoryExpression>
+                            <![CDATA[$F{employeeDepartment}]]>
+<!--                            <![CDATA[new java.util.ArrayList($P{departmentCounts}.keySet()).get($V{REPORT_COUNT} % $P{departmentCounts}.size())]]>-->
+                        </categoryExpression>
+                        <valueExpression>
+                            <![CDATA[$P{departmentCounts}.get($F{employeeDepartment})]]>
+<!--                            <![CDATA[$P{departmentCounts}.get(new java.util.ArrayList($P{departmentCounts}.keySet()).get($V{REPORT_COUNT} % $P{departmentCounts}.size()))]]>-->
+                        </valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <barPlot>
+                    <plot/>
+                    <itemLabel/>
+                </barPlot>
+            </barChart>
+        </band>
+    </title>
+</jasperReport>
