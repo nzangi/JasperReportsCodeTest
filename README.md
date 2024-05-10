@@ -1,5 +1,6 @@
 # JasperReportsCodeTest Project
-<img src="images/jasper.jpeg" width="100%">
+<img src="images/jasper.jpeg" width="259"><br/>
+## Documentation <br/>
 
 ## 📋 <a name="table">Table of Contents</a>
 1. 🤖 [Introduction](#introduction)
