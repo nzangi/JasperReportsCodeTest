@@ -42,10 +42,4 @@ public class Employee {
     @Column(name = "hire_date")
     private LocalDate employeeHireDate;
 
-//    @Id
-//    private int id;
-//    private String name;
-//    private String designation;
-//    private double salary;
-//    private String doj;
 }

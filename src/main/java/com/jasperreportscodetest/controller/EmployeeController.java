@@ -31,18 +31,20 @@ public class EmployeeController {
 
     @Autowired
     private ReportService reportService;
-
+    //list all the employees
     @GetMapping("/all-employees")
     public List<Employee> getAllEmployees(){
         return employeeRepository.findAll();
     }
 
+    //Get employees based on the arguments given
     @GetMapping("/report/{format}")
     public String generateReport(@PathVariable String format,
                                  @RequestParam(required = false) String department,
                                  @RequestParam(required = false) Double minSalary,
                                  @RequestParam(required = false) Double maxSalary)
             throws FileNotFoundException, JRException {
+        //filter report depending on the arguments given
         if (department == null || minSalary == null || maxSalary == null) {
             // If any parameter is missing, generate report without filtering
             return reportService.exportReport(format,null,0,0);
@@ -52,19 +54,24 @@ public class EmployeeController {
         }
     }
 
+    //print salary report
     @GetMapping("/salary-report/{format}")
     public String generateSalaryReport(@PathVariable String format) throws JRException, FileNotFoundException {
         return reportService.exportSalaryReport(format);
     }
 
+    //print chart report
     @GetMapping("/chart-report/{format}")
     public String generateChartReport(@PathVariable String format) throws JRException, FileNotFoundException {
         return reportService.exportChartReport(format);
     }
+
+    //print address and contact report
     @GetMapping("/users-full-report/{format}")
     public String generateFullReport(@PathVariable String format) throws JRException, FileNotFoundException {
         return reportService.exportFullUSerReport(format);
     }
+    // Generate dummpy data to the database
     @PostConstruct
     public void initializeData() {
         Faker faker = new Faker();

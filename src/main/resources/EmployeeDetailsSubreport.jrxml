@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employees" pageWidth="695" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ea9d9eab-78ea-4cb9-adce-7588ae6a483e">
-    <!--    <parameter name="Department" class="java.lang.String"/>-->
-    <!--    <parameter name="MinSalary" class="java.lang.Double"/>-->
-    <!--    <parameter name="MaxSalary" class="java.lang.Double"/>-->
 
-    <!--    <queryString><![CDATA[SELECT * FROM employee_table WHERE-->
-    <!--                          (employee_department = $P{Department} OR $P{Department} IS NULL)-->
-    <!--                          AND (employee_salary BETWEEN $P{MinSalary} AND $P{MaxSalary})]]></queryString>-->
-    <!--    -->
     <import value="com.jasperreportscodetest.utils.ReportUtils"/>
     <field name="employeeId" class="java.lang.Integer">
     </field>
@@ -16,7 +9,6 @@
 
     <field name="address" class="com.jasperreportscodetest.entity.Address"/>
     <field name="contactInformation" class="com.jasperreportscodetest.entity.ContactInformation"/>
-<!--    <field name="email" class="java.lang.String"/>-->
 
     <background>
         <band/>
@@ -200,7 +192,6 @@
             </textField>
         </band>
     </pageFooter>
-
 
     <summary>
         <band height="50">

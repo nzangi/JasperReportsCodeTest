@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employees" pageWidth="695" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ea9d9eab-78ea-4cb9-adce-7588ae6a483e">
-<!--    <parameter name="Department" class="java.lang.String"/>-->
-<!--    <parameter name="MinSalary" class="java.lang.Double"/>-->
-<!--    <parameter name="MaxSalary" class="java.lang.Double"/>-->
 
-<!--    <queryString><![CDATA[SELECT * FROM employee_table WHERE-->
-<!--                          (employee_department = $P{Department} OR $P{Department} IS NULL)-->
-<!--                          AND (employee_salary BETWEEN $P{MinSalary} AND $P{MaxSalary})]]></queryString>-->
-<!--    -->
     <import value="com.jasperreportscodetest.utils.ReportUtils"/>
     <field name="employeeId" class="java.lang.Integer">
     </field>
@@ -19,9 +12,6 @@
     </field>
     <field name="employeeHireDate" class="java.time.LocalDate">
     </field>
-
-<!--    <field name="employeeDepartment" class="java.lang.String"/>-->
-<!--    <field name="employeeSalary" class="java.lang.Double"/>-->
 
     <background>
         <band/>
@@ -182,31 +172,8 @@
             </textField>
 
 
-
-            <!--            <subreport>-->
-<!--                <reportElement x="10" y="40" width="500" height="50" uuid="uuid">-->
-<!--                    <property name="net.sf.jasperreportsport.html.border.top" value="1"/>-->
-<!--                </reportElement>-->
-<!--                <subreportParameter name="employeeId">-->
-<!--                    <subreportParameterExpression><![CDATA[$F{employeeId}]]></subreportParameterExpression>-->
-<!--                </subreportParameter>-->
-<!--                <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{SUBREPORT_DATA_SOURCE})]]></dataSourceExpression>-->
-<!--                <subreportExpression><![CDATA["EmployeeDetailsSubreport.jasper"]]></subreportExpression>-->
-<!--            </subreport>-->
-
-
-<!--                    <subreport>-->
-<!--                        <reportElement x="0" y="0" width="200" height="20"/>-->
-<!--                        <subreportParameter name="departmentTotalSalaryMap">-->
-<!--                            <subreportParameterExpression><![CDATA[$P{departmentTotalSalaryMap}]]></subreportParameterExpression>-->
-<!--                        </subreportParameter>-->
-<!--                        <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRMapCollectionDataSource($P{departmentTotalSalaryMap})]]></dataSourceExpression>&lt;!&ndash;                        <subreportExpression><![CDATA["DepartmentSummary.jrxml"]]></subreportExpression>&ndash;&gt;-->
-<!--                        <subreportExpression><![CDATA["DepartmentSummary.jasper"]]></subreportExpression>-->
-<!--                    </subreport>-->
-
         </band>
     </detail>
-
 
     <columnFooter>
         <band/>
@@ -228,10 +195,6 @@
             </textField>
         </band>
     </pageFooter>
-<!--    <summary>-->
-<!--        <band/>-->
-<!--    </summary>-->
-
 
     <summary>
             <band height="50">

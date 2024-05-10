@@ -23,11 +23,9 @@
                         </seriesExpression>
                         <categoryExpression>
                             <![CDATA[$F{employeeDepartment}]]>
-<!--                            <![CDATA[new java.util.ArrayList($P{departmentCounts}.keySet()).get($V{REPORT_COUNT} % $P{departmentCounts}.size())]]>-->
                         </categoryExpression>
                         <valueExpression>
                             <![CDATA[$P{departmentCounts}.get($F{employeeDepartment})]]>
-<!--                            <![CDATA[$P{departmentCounts}.get(new java.util.ArrayList($P{departmentCounts}.keySet()).get($V{REPORT_COUNT} % $P{departmentCounts}.size()))]]>-->
                         </valueExpression>
                     </categorySeries>
                 </categoryDataset>
