@@ -14,7 +14,7 @@ focuses on report generation according to the data which is on the database.
 
 Project aims to developer reports using Jasper library.
 
-## <a name="#tech-stack">️️⚙️️ Tech Stack</a>
+## <a name="tech-stack">️️⚙️️ Tech Stack</a>
 - Spring Boot
 - Spring Data JPA
 - Spring Web
